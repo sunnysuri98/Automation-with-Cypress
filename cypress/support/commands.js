@@ -29,5 +29,29 @@ import "cypress-real-events";
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+Cypress.Commands.add('login', (username, password) => {
 
-  
+    cy.session(username, () => {
+        cy.visit("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+        cy.get("input[placeholder='Username']").type(username);
+        cy.get("input[placeholder='Password']").type(password);
+
+        cy.get("button[type='submit']").click();
+
+        cy.url().should("contains","/dashboard/index");
+
+
+
+
+    })
+
+
+
+
+
+});
+
+
+
+
+
